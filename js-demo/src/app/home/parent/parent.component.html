@@ -1,0 +1,15 @@
+<!--TODO: talk about semantic ele-->
+
+<section class="parent">
+  <ng-content select=".hi"></ng-content>
+<!--  marker-->
+  <h4 #h4>Parent</h4>
+  <p>Data from child: {{childData}}</p>
+  <div class="child-wrapper">
+<!--  c -> p
+      in parent template, use event binding to receive the event which is our data
+      -->
+    <app-child (sendData)="updateChildData($event)"></app-child>
+  </div>
+  <ng-content></ng-content>
+</section>

@@ -1,0 +1,56 @@
+<h2>Home</h2>
+
+<app-parent>
+  <p #hi class="hi">Hi</p>
+  <p>Bye</p>
+</app-parent>
+
+<app-product-overview [product]="p"></app-product-overview>
+
+<h4>Directive</h4>
+<ol>
+  <li>Attribute Directive:
+    Change the appearance or behavior od DOM elements and Angular components
+    i.e. ngModel. routerLink, routerLinkActive
+  </li>
+  <li> Structural Directive:
+    Change the DOM structure or layout
+    i.e. *ngIf  *ngFor
+  </li>
+</ol>
+
+<!--ngStyle: match value-->
+<p [ngClass]="{'text-danger': magicText === 'danger', 'text-success': magicText == 'success'}">Magic Text</p>
+<input type="text" [(ngModel)]="magicText">
+
+<hr>
+<input type="checkbox" [(ngModel)]="isLoggedIn">
+<p [appMyShow]="!isLoggedIn">Login</p>
+<p *appMyIf="isLoggedIn">Logout</p>
+<p appCrah>ChangeRedAlertHello</p>
+
+<!--*ngIf
+    *: syntax sugar:
+    <p *ngIf="isLoggedIn">Logout</p>
+    <ng-template [ngIf]="isLoggedIn">
+      <p>logout</P>
+    </ng-template>
+-->
+
+
+<!--ng-template vs ng-container vs ng-content
+
+
+  The <ng-content> element specifies where to project content inside a component template.
+  ng-content: parent to child communication
+-->
+
+<!--web components
+  ng-template         <- 1. html template, some contents we can conditionally show and hide
+  component           <- 2. custom elements
+  component template  <- 3. HTML imports
+  View Encapsulation  <- 4. shadow DOM (encapsulation)  *****
+
+
+-->
+

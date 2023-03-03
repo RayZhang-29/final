@@ -1,0 +1,35 @@
+<main class="container" style="margin-top: 10px;">
+  <mat-card fxFlex="100%" fxFlex.gt-xs="60%" fxFlexOffset.gt-sm="20%">
+    <mat-card-title>Login</mat-card-title>
+<!--    ngFrom directive will be automatically applied by angular on form element
+      one thing it does is calling event.preventDefault()
+
+      form states: valid/invalid  touched/untouched  dirty/pristine
+
+      ****** angular form support
+        1. template driven form(this demo)  directives    easy to use but hard for unit testing
+        2. reactive form
+
+        #: get form instance
+-->
+    <mat-card-content>
+      <form fxLayout="column" #loginForm="ngForm" (ngSubmit)="submit(loginForm)">
+        <mat-form-field appearance="outline">
+          <!--  ngModel + name -->
+          <input ngModel name="username" matInput type="text" placeholder="Username" required>
+          <mat-error>Username is required</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <input ngModel name="password" matInput type="password" placeholder="Password" required minlength="3">
+          <mat-error>Password must be no less than 3 characters long</mat-error>
+        </mat-form-field>
+        <div>
+          <button mat-raised-button color="primary" type="submit">Login</button> &nbsp;
+          <a mat-button color="accent" routerLink="/register">Register</a>
+          <!--        submit: -> action / current page -> reload-->
+        </div>
+      </form>
+    </mat-card-content>
+
+  </mat-card>
+</main>

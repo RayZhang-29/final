@@ -1,0 +1,39 @@
+
+<h2>Products</h2>
+<hr>
+<main class="products-container">
+  <section class="products-filter-section">
+    <select name="" class="form-control" [(ngModel)]="cs.currencyCode">
+      <option value="USD">US Dollar</option>
+      <option value="CNY">Chinese Yuan</option>
+      <option value="JPY">Japanese Yuan</option>
+    </select>
+    <label>
+      Min <input type="number" class="form-control" [(ngModel)]="min">
+    </label>
+    <label>
+      Max <input type="number" class="form-control" [(ngModel)]="max">
+    </label>
+    <p>
+      <button (click)="addProduct()" class="btn btn-dark">Add Product</button>
+    </p>
+
+  </section>
+  <section class="products-list-section">
+    <div class="products-list-container" *ngIf="products">
+      <!--   Component communication
+         P -> C : In parent component template, use attribute binding
+         to pass data down to child.
+         -->
+      <app-product-overview [product]="p" *ngFor="let p of products | priceRange: min: max"></app-product-overview>
+<!--  multiple directives to one html ele?
+        It depends. 1. can use multiple
+                    2. only one structural directive can be applied on one ele
+                    (solution: 1. add wrapper and add structural directive to the wrapper
+                               2. ng-container: reduce DOM tree query)
+
+      ng-container will create a temp wrapper ()
+-->
+    </div>
+  </section>
+</main>

@@ -1,0 +1,14 @@
+<ul>
+  <li>
+<!--    The first segment name can be prepended with /, ./, or ../.-->
+
+<!--    If the first segment begins with /, the router looks up the route from the root of the app.-->
+<!--    If the first segment begins with ./, or doesn't begin with a slash, the router looks in the children of the current activated route.-->
+<!--    If the first segment begins with ../, the router goes up one level in the route tree.-->
+    <a routerLink="./music">Prime Music</a>
+  </li>
+  <li>
+    <a routerLink="video">Prime Video</a>
+  </li>
+</ul>
+<router-outlet></router-outlet>

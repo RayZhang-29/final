@@ -1,0 +1,43 @@
+<!-- one way binding: {{}} whenever model changed, view will be updated
+Model View Controller
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+<!--  <h1>Hello {{title}}</h1>-->
+
+  <!--  attribute binding-->
+<!--  <a [href]="link">Leetcode</a>-->
+
+  <!--  event binding -->
+<!--  <button (click)="changeTitle()">Change</button>-->
+
+  <!--  two way binding  model <=> view
+    whenever model changed, view will be updated,
+    whenever view changed, model will be updated-->
+<!--  <input [value]="title" (input)="updateTitle($event)" type="text">-->
+  <!--  <input (change)="updateTitle($event)" type="text">     show when mouse leave-->
+
+  <!--ngModel  form :  two way binding-->
+  <!--  banana in a box-->
+<!--  <input type="text" [(ngModel)]="title"]>-->
+
+
+<app-header></app-header>
+<router-outlet></router-outlet>
+<!--<app-home></app-home>-->
+<!--<app-products></app-products>-->
+
+
+</body>
+</html>
