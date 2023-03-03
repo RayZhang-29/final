@@ -1,0 +1,230 @@
+<!-- jQuery
+  momnetjs, datefn
+  dtd
+  html document:DOM
+  document tranversal, manipulation
+  document: generally the root in browser-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<!-- import js externally -->
+	<script type="text/javascript" src="./js/jquery-3.3.1.min.js"></script>
+	<!-- import css externally -->
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+	
+	<script type="text/javascript">
+		// onload will be called when DOM is ready
+    // it will be called after all the resources finished loading
+    // img, audio, video, css, iframe, etc..
+		window.onload = function onload() {
+			var ul = document.getElementById('items'),
+				li = document.createElement('LI'), // yes, case insensitive
+				textNode = document.createTextNode('JavaSrcipt');
+			li.appendChild(textNode);
+			ul.appendChild(li);
+		}
+
+		// ready will be called when DOM is ready
+    // it will not wait for resources.
+    // ready will be called when DOMContentLoaded fires.
+		$(document).ready(function ready() {
+			// jQuery selectors
+      // id
+      $('#items').append('<li>jQuery</li>');
+
+      // class selector
+      console.log($('.y'));
+
+      // element selector
+      console.log($('p'));
+
+      // combination
+      console.log($('p.y'));
+
+      // descendant selector
+      console.log($('.container h4'));
+
+      // child selector >
+      console.log($('.container > h4'));
+
+      // general sibling combinator ~: tilda
+      console.log($('p ~ h4')[0]);
+
+      // adjacent sibling combinator
+      console.log($('button + h4')[0]);
+
+      // * everything
+      console.log($('.container *'));
+
+      // attr selector (unique)
+      console.log($('[href="http://www.google.com"]'));
+
+      // caret ^ start with 
+      console.log($('[href^="http://"]'));
+
+      // $ end with
+      console.log($('[href$=".hk"]'));
+
+      // contains
+      console.log($('[href*="google"]'));
+
+      // pseudo selectors(based on state)
+      console.log('first', $('ul li:first')[0]);
+      console.log('last', $('ul li:last')[0]);
+      console.log('odd', $('ul li:odd')); // 1, 3
+      console.log('even', $('ul li:even')); // 0, 2, 4
+      // select li in ul which is the 3rd CHILD, 1 based index
+      console.log($('ul li:nth-child(3)')[0]); // undefined
+      // select 3rd li in ul
+      console.log($('ul li:nth-of-type(3)')[0]);
+      console.log($('ul li:nth-of-type(3n)')[0]); // 3, 6, 9
+      
+      $('#add_li').click(function addLiClickEventHandler() {
+        $('#items').prepend('<li>ExpressJS</li>');
+        $('<li>MongoDB</li>').prepend('#item');
+        
+        $('ul li:nth-child(3)').before('<li>Angular</li>');
+        $('ul li:nth-of-type(3)').after('<li>NodeJS</li>');
+      
+        // remove: it will remove itself and childern
+        $('#item').remove();
+
+        // empty: it will remove the childern
+        $('#item').empty();
+      });
+
+      $('#btn1').on('mouseenter', function btn1MouseenterHandler() {
+        // text vs html: both allow changing text contents,
+        //               html() can create new html elements
+        $('#x').text('first paragraph changed');
+        $('p.y').html('second paragrah changed');
+        $('div.y').html('<strong>I\'m Strong</strong>');
+
+        // attr vs prop?
+        // attr: will work with general html attributes
+        // prop: only work wiht DOM object properties
+        $('a').attr('href', 'www.bilibili');
+        $('a').prop('href', 'http://youtube.com');
+        
+        // try using data-foo as attribute to modify
+        $('a').attr('data-foo', 'car');
+        $('a').prop('daatafoo', 'ear');
+
+        /* css ways to hide element
+            1. display: none;       no space reserved,  no events
+            2. visibility: hidden;  space reserved,     no events
+            3. opacity:0 / 1;       space reserved,     has events
+        */
+        // $('h1').hide(); // display: none; 
+        // $('.nav.nav-default').hide(); // class="nav nav-default"  -> '.nav.nav-default'
+        // setTimeout(function () {
+        //   $('h1').show();
+        // }, 1000);
+        $('.nav.nav-default').toggle(1000, function() {
+          console.log('animation finished');
+        });
+
+        // $('h2').css('color', 'red');
+        $('h2').css({
+          'font-size': '100px',
+          // kabab-case
+          backgroundColor: 'pink'
+        });
+
+        // $('a') -> jQuery object -> array like object
+        // remove jQuery: 
+        //    document.querySelector('a') === $('a')[0] // true
+        
+        /* jQuery element is an array-like object
+                          is a wrapper of html element
+            
+          converting jQuery ele => html ele
+          1. [key]  2. .get(key)
+
+          html ele => jQuery ele:
+          $(dom)
+
+          jQuery elements => one jQuery ele
+          .eq(key)  ->  return jQuery on
+        */
+
+        var $container = $('div.container');
+
+        // find, to select something inside the container
+        $container.find('h4');  // vs $('h4')
+        
+        // .children() .parents() .parents() .closest()
+        // .children will find direct child
+        $container.children('div');
+
+        // .parent() will find direct parent
+        console.log($('div.y').parent());
+        
+        // .parents will find all ancestors
+        $('h1').parents('div');
+        
+        // .closest will find nearest/closest ancestor
+        $('h1').closest('div');
+      });
+
+		});
+		
+	</script>
+</head>
+
+<body>
+	<div class="container">
+    <h1 class="nav nav-default">jQuery Selectors</h1>
+    <hr>
+    <h2>Basic Selectors</h2>
+    <p id="x">First Paragraph</p>
+    <p class="y">Second Paragraph</p>
+    <div class="y">Another Second Paragraph</div>
+    <h4>This is a h4 tag</h4>
+    <div>
+      <button class="btn btn-primary" id="btn1">Select</button>
+      <button class="btn btn-primary" id="btn2" disabled>Update</button>
+      <h4>This is a h4 tag in div</h4>
+    </div>
+    <hr>
+    <h2>Select Attribute</h2>
+    <p>
+      <a href="http://www.google.com/" target="_blank" data-foo="bar">
+      Google
+      </a>
+      <a href="https://www.google.com.hk/" target="_blank" data-foo="bar">
+      Google HK
+      </a>
+      <a href="http://www.google.com.hk/" target="_blank" data-foo="bar">
+      Google HK(unsecure)
+      </a>
+    </p>
+    <div id="buttons-div">
+      <button class="btn btn-primary" id="btn3">Read Link</button>
+      <button class="btn btn-primary" id="btn4">Update Link</button>
+      <button class="btn btn-primary" id="toggle" data-color="blue">Toggle Background</button>
+    </div>
+  </div>
+  <h4>This is a h4 tag outside container</h4>
+  <ul id="items">
+    <li>Java</li>
+    <li>Java EE</li>
+    <p>Test</p>
+    <li>Spring</li>
+    <li>Hibernate</li>
+    <li>Struts</li>
+  </ul>
+  <p>
+      <button class="btn btn-primary" id="add_li">Add Li</button>
+  </p>
+</body>
+</html>
+
+
+
+
+

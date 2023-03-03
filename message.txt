@@ -1,0 +1,288 @@
+AngularJS
+    1.x, we are covering 1.4 (component introduced since 1.5)
+    framework: MVC -> MVVM (Model View ViewModel) Model <-> ViewModel($scope) <-> View
+        Model/data
+        View: html
+        Controller: Splitting the app into different parts and have different controllers
+    Directive - An important angular feature, by putting a marker on the html elements, all elements have the marker will get same additional logical treatment
+        built in: start with ng-
+        custom: E, A, comment...
+    Data Binding - bind to $scope, bind to controller use controller as syntax
+        one way:  model -> view
+        two way:  ng-model
+        one time: ::
+    Array binding
+    Conditional binding
+    About Scope: __proto__  prototype chain  Defined in higher $scope will be inherited
+        $rootScope
+            v
+     $scope(mainCtrl)
+        v       v
+  $scope(1st)  $scope(2nd)
+
+    Directive is an marker to add on existing HTML element which can provide additional functionalities
+      Communicate between controller:
+          1. $rootScope
+          2. events
+          3. service (preferable)
+
+
+****** Angular ******
+Angular8:
+    > Differential loading: two bundles are created when building for production: a bundle for modern browsers that support ES2015+ and a bundle for older browsers that only support the ES5 version of JavaScript
+    > loadChildren: { path: `/cart`, loadChildren: () => import(`./cart/cart.module`).then(m => m.CartModule) } TypeScript can do a better check
+
+ng new ng7demo --routing --style=scss --service-worker
+Typescript
+    Typing feature
+        > tsc(typescript compiler)
+        > typescript -> Javascript
+        > Typescript is only for development use and can't be executed in any js runtime.
+        > transpile ES6 to ES5 if needed(68%).
+            other flavor: babel, Traceur(google)
+
+Typescript
+typing feature
+    tsc typescript compiler
+    typescript -> javascript
+    typescript is only for development use and can't be executed in any js runtime
+    68% ES6 new features
+    npm install -g typescript
+Angular8
+angular 2+: 2016, sep
+angular 4,5,6,7, 8
+Component
+    directive with template
+    template/styles/data
+    @component
+    metadata: selector, templateUrl, styleUrls
+    Data Binding
+        > one way: {{}} bind component instance(difference vs angularjs)
+        > attribute binding: [href]
+        > event binding: (click)
+        > two way: needs FormsModule and [(ngModel)]
+    Module system: ES6 feature
+    Named export : multiple, need to match variable name
+    default export: no need to match name
+    Directives
+        > Structural directive
+            manipulate DOM structure
+            *ngFor, *ngIf (; else introduced @angular4)
+        > Attribute Directive - [routerLink]="'path'"  syntax sugar: routerLink="path"
+            change DOM element/component attribute
+            ngClass, ngStyle
+
+    Custom directive
+      ViewContainer (Use ViewContainerRef to get reference to it)
+      template (ng-template, use TemplateRef to get ref)
+        template is web components standard, which will not be build into DOM tree.
+        * will be translated to <ng-template></ng-template>
+    Component Communication
+        parent -> child
+            > In child, use @Input to specify the variable which is used to receive data from parent
+            > In parent, use attribute binding to pass parent data to child through attribute on child element
+        child -> parent (Mediator design pattern)
+            > In child, create an event emitter with @Output to send an event which carries data to parent
+            > In parent , use event binding to listen to the event and extract data($event)
+        Service
+            Injected service should be public if it's used in templates. otherwise, angular AOT(Ahead-of-Time compiler) build process will throw error.
+    Routing
+        > RouterModule.forRoot
+            configure routing for app module
+        > route -path, component, redirectTo...
+        > use routerLink for links
+            If the first segment begins with /, the router will look up the route from the root of the app.
+            If the first segment begins with ./, or doesn't begin with a slash, the router will instead look in the children of the current activated route.
+            And if the first segment begins with ../, the router will go up one level.
+        > router-outlet as placeholder to load components.
+        RouterState - interface, ActivatedRoute implements
+            An object holds info about current routing
+            CurrentActivatedRoute
+            Snapshot: snapshot of current active routing
+        lazy loading module(angular)
+        > Guard service
+    Local Storage
+        lite database for browser.
+        data will not be cleared after page refreshes or closed.
+        key value pairs. Only take string format data.
+        no expiration time.
+    Service
+        @Injectable
+            providedIn: 'root' // introduced in Angular6
+        constructor injection
+    Pipe
+        > a function which transform data format in template.
+        > pure change: primitive value change or array/object reference change
+        > impure change: array element change or object property change
+        > pure pipe: can detect pure changes only
+        > impure pipe: can detect both pure and impure changes. ** SLOW **
+    View Encapsulation
+        encapsulate CSS styles for component
+        ViewEncapsulation.ShadowDom (100%)
+            > component style can't go outside, outside styles can't go inside
+        ViewEncapsulation.Emulated (50%)
+            > component style can't go outside, outside styles can go inside
+        ViewEncapsulation.None
+            > component style can go outside, outside styles can go inside
+    Http
+        HttpClientModule(after 4.3, before HttpModule)
+        HttpClient
+    Reactive Programming:
+    Observable (rxjs - Reactive eXtension)
+        > Observable is a data source object which continuously send data to all its observers/subscribers overtime. (a stream of data)
+        > can pre-process data using .pipe() to apply rxjs operators, i.e. map
+        > lazy, if don't subscribe, it won't execute
+    Form Support
+        > collect user's input, form validations, form data submission
+        > ...
+        > ngForm(and novalidate) auto added by angular to form element
+            prevent default form submission. create a FormGroup object
+        > ngModel + name
+            will instruct angular to take control the input, create formControl obj
+        > ngModelGroup
+        ******************************
+        > Template-driven forms (Angular built-in directive/component)
+            all logics(config, validation, submission) go inside the template
+            simple form
+            not easy for unit testing
+            angular will create form instance/object(not accessible to devs)
+        > Reactive forms
+            most of the logics live in component
+            use some directive attribute bindings provided in ReactiveFormsModule
+            complicated/customized form
+            easy for unit test
+            developers will create form instances/objects to control the form
+        > Form State:
+            valid/invalid: Whether all form controls passed the validation
+            dirty/pristine: Whether the form has been modified or no
+            touched/untouched: Whether any form control got blurred or no
+            submitted: Whether the form has been submitted or no
+        > Form Validation
+            errors -> null, no validation error
+            errors -> {required: 'error msg', minlength: 'error msg'}
+            validator is a func takes form instances and return validation errors
+            states: touched, valid, ditry/pristine, submitted
+    How to access DOM element/child component in Angular Component
+        > @ViewChild, @ViewChildren
+    Change Detection (10 times faster than digest cycle)
+        the process angular runs to synchronize model and view
+        Monkey Patch - patch browser native APIs (eventListener, timeout)
+            notify angular when async operations(ajax,browser/timed events) finished
+            ngZone which implements zone.js:
+            window.oldSetTimeout = setTimeout;
+            window.setTimeout = function(cb, time){}
+            this.zone.onTurnDone.subscribe(()=>this.zone.run(this.tick()))
+
+            tick(){
+                this.changeDetectorRefs.forEach((ref) => ref.detectChanges());
+            }
+            zone.js zone.run (
+                        oldSetTimeout(function() {
+                            cb();
+                            // turnDone zone, notify angular
+                        }, time)
+                    )
+        Will run all cd and always start from root
+        Change Detector (components)
+            (cd)
+             /\
+         (cd)  (cd)  change detection strategy(default, OnPush)
+    LifeCycle - component/directive HookMethod
+        constructor
+        ngOnInit - data initialization
+        ngOnDestroy - before component will be destroyed.e.g. navigate away.
+        ngOnChanges - will be invoked whenever input data binding changes(pure change)
+        ngDoCheck - invoked when parent change detector runs
+        // for component only
+        ngAfterViewInit - invoked after child/DOM components ready
+        ngAfterViewChecked
+        ngAfterContentInit - invoked after contents passed from parents done initialization
+        ngAfterContentChecked
+    Unit Test
+        karma + jasmine to do angular unit test. karma is the launcher
+        keywords:
+            stub - predefine behaviors
+            spy - special stub. can record invoke count
+            mock - fake an object with behaviors you defined
+    Automation Test
+        Selenium, Protractor
+        app.po - po means page object
+        ng e2e (use node 10.14.1 or earlier version)
+    Web Components:
+        1. Shadow DOM
+        2. template
+        3. HTML Import
+        4. custom element
+        Root
+         |
+    [shadow root ]   Shadow DOM
+         |
+     real child
+         |
+        ...
+        Observable
+        O observable (publisher)
+     /  |  \
+     O  O  O  Observer(subscriber)
+     Subject
+        Behavior Subject - will get the latest value immediately
+        Replay Subject - will get history of the values
+        Async Subject - value is an observable
+1. What is Angular?
+A JavaScript Framework developed by Google which allows you to create reactive SPA
+2. What is SPA
+Single Page Applications are Web apps that load a single HTML page and dynamically update the page as the user interacts with the app.
+3. Angular 1 vs Angular 2+
+Angular 1 also called AngularJS is the initial version of Angular and Angular 2 is a complete re-write of Angular 1. Thus it's a different framework.
+4. What is TypeScript
+It's a strict syntactical superset of JavaScript and adds optional static typing to the language
+5. style/view encapsulation, Shadow DOM
+    encapsulation:
+        ViewEncapsulation.ShadowDOM
+        ViewEncapsulation.Native //Deprecated in new version. Depended on browser Shadow DOM support
+        ViewEncapsulation.None//no encapsulation,
+        ViewEncapsulation.Emulated//recommended over Native]
+6. property binding to pass data
+    ng-content to pass html template from parent to child
+    EventEmitter
+        Use in directives and components to emit custom events synchronously or asynchronously, and register handlers for those events by subscribing to an instance
+7. Component Lifecycle
+    ngOnChanges - executed right after creation and model value change
+    ngOnInit - once component is initialized(after the constructor)
+    ngDoCheck - Called during every change detection run
+    ngAfterContentInit - Called after ng-content projected into view
+    ngAfterContentChecked - Called whenever projected content checked
+    ngAfterViewInit - Called after component's(+child) view rendered
+    ngAfterViewChecked - Called view(+child view) checked
+    ngOnDestroy - Called when component is about to be destroyed
+    Every new instance creation will trigger above lifecycle
+8. Environment variables
+    environment.ts - ng serve
+    environment.prod.ts - ng build
+9. Attribute vs Structural Directives
+    attribute sits as an attribute which modifies value
+    structural(with *) affect DOM element, even destroy it(no combination)
+10. Two ways of interacting with DOM in Directive: renderer or through hostbinding var
+    1. pass in renderer: Renderer2 as arg in constructor
+    2. @HostBinding('style.color') color: string = 'transparent';
+    @HostListener('mouseenter') mouseEnter(event: Event) {
+        renderer.setStyle(this.elementRef.nativeElement, 'color', 'red'); //1.
+        this.color = 'red'; // 2.
+    }
+11. No need to import service and create instance, right way to do:
+    1. Dependency Injection
+        Hierarchical Dependency Injectors: injection available through descendants,
+         but child can have a different instance of injection by specifying it in providers:[]
+    2.
+12. Routers
+        in .ts:
+            import {RouterModule, Routes} from '@angular/router';
+            const appRoutes: Routes = [{ path: 'home', component: HomeComponent }];
+            imports: [RouterModule.forRoot(appRoutes)]
+        in HTML:
+            routerLinkActive="active" // meaning if current is active add 'active' class
+            [routerLinkActiveOptions]="{exact: true}" // require url exact match
+            routerLink="home" or [routerLink]="'home'" or [routerLink]="['/home', 'other']"
+
+FormsModule is Required for Two-Way-Binding!
+useful chrome extension: Augury

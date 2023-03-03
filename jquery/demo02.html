@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Browser Events</title>
+		<!-- import js externally -->
+	<script type="text/javascript" src="./js/jquery-3.3.1.min.js"></script>
+	<!-- import css externally -->
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+	<style type="text/css">
+		#outer {
+            width: 300px;
+            height: 300px;
+            border: 2px solid red;
+        }
+
+        .container {
+            height: 350px;
+            border: 2px dotted purple;
+        }
+	</style>
+	<script type="text/javascript" src="./js/demo02.js"></script>
+</head>
+<body>
+	<div class="container" id="container">
+        <div id="outer">
+            <button class="btn-primary btn" id="inner">
+            	<img width="100px" src="https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn-icons-png.flaticon.com%2F512%2F3814%2F3814073.png&imgrefurl=https%3A%2F%2Fwww.flaticon.com%2Ffree-icon%2Fmailbox_3814073&tbnid=TxktP5vN580fJM&vet=12ahUKEwjg8_j8iqf9AhXsGGIAHQA7D-cQMyhTegUIARC4AQ..i&docid=ilQz3WQAf_ujcM&w=512&h=512&q=mailbox%20icon&ved=2ahUKEwjg8_j8iqf9AhXsGGIAHQA7D-cQMyhTegUIARC4AQ">
+               <span>Click Me</span>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+
+
+<!-- Why Event Propagation? 
+	Pro: We only need one event listener on the common ancestor.
+	Con: in some cases, we don't want the event to propagate.
+-->
+
+
+
+
+
+
+
+
+
+
+
+

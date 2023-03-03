@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- XMLHttpRequest -->
+	<title>AJAX request</title>
+	<script>
+		var xhr = new XMLHttpRequest(),
+			url = 'http://localhost:3000';
+	
+		xhr.open('GET', url + '/students');
+		xhr.responseType = 'json';
+
+		xhr.onload = function onload() {
+			if (xhr.status === 200) {
+				var students = xhr.response
+					ul = document.querySelector('ul'),
+					li,
+					text;
+				student.forEach(function(s) {
+					li = document.createElement('li');
+					text = document.createTextNode(s.name + ' ' + s.score);
+					li.appendChild(text);
+					ul.appendChild(li);
+				});
+			}
+		};
+
+		xhr.send();
+	</script>
+</head>
+<body>
+	<ul>
+		
+	</ul>
+</body>
+</html>

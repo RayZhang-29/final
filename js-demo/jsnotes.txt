@@ -1,0 +1,54 @@
+*** what is JavaScript?
+It's a scripting programming language that follows ECMAScript(ES)(is a standard/JS) standard. (European Computer Manufacturers Association).
+
+JavaScript Versions
+ES5 - 2009   the only version that is compatible with all browsers
+
+NextGen JS (ES6)):
+ES6 - 2015   ES2015   introduces hundreds od new features
+ES7 - 2016   ES2016   some new features
+ES8 - 2017   ES2017   
+...
+
+Runtime Environment  (Windows, JRE)
+1. Browser (engine)
+	chrome(V8 engine), firefox(Gecko), safari(Webkit), edge(chromium) ie, 360, qq...
+
+2. NodeJS (V8 engine, different results from chrome)
+	- ***What is NodeJS?    It's a server-side js runtime env.
+
+Why JS?  Powerful
+- Create a dynamic web applications, like Amazon
+- Create a backend server with NodeJS
+- Interact easily with Firebase, MongoDB...
+- Build desktop applications with electron
+- Build mobile applications
+	- hybrid mobile apps (in-app router: webview)  phonegap/cordova, ionic
+	- native mobile apps   ionic 2+, NativeScript, React Native
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
